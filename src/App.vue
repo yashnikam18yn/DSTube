@@ -1,10 +1,10 @@
 <template>
 
- <HeaderComponent/>
+ <HeaderComponent @search="searchfunction" />
  <!-- <ViewHomePage/> -->
  <!-- <HomeMainPage/> -->
  <!-- <Profile/> -->
- <router-view></router-view>
+ <router-view  :search="searchQuery"></router-view>
  <FooterComponent/>
 </template>
 
@@ -17,8 +17,13 @@ import ViewHomePage from './components/View/ViewHomePage.vue';
 import HomeMainPage from './components/Home/HomeMainPage.vue';
 import Profile from './components/Profile/Profile.vue'
 
+import { ref } from 'vue';
 
-
+const searchQuery=ref('');
+const searchfunction=(searchValue)=>{
+    console.log("inside App js",searchValue);
+    searchQuery.value=searchValue;
+}
 </script>
 
 

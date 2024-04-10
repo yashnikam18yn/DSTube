@@ -4,19 +4,30 @@
       <img @click="$router.push('/')"  src="https://www.freeiconspng.com/uploads/hd-youtube-logo-png-transparent-background-20.png" alt="Logo">
     </div>
     <div class="search-bar">
-      <input type="text" placeholder="Search">
-      <button>Search</button>
+      <input v-model="search" @input="searchdata" type="text" placeholder="Search">
+      <button @click="searchdata"> <Icon icon="bi:search" /> Search</button>
     </div>
     <div class="buttons">
-      <button @click="$router.push('/')">Home</button>
+      <button @click="$router.push('/')"><Icon icon="bi:house-door-fill" /> Home</button>
       
-      <button @click="$router.push('/profile')">Profile</button>
+      <button @click="$router.push('/profile')"><Icon icon="bi:person-circle" /> Profile</button>
     </div>
   </header>
 </template>
 
 <script setup>
+import {ref} from 'vue';
 
+const emit=defineEmits(['search'])
+const search = ref('');
+
+
+
+
+const searchdata=()=>{
+  console.log("Search",search.value);
+  emit('search',search.value);
+}
 </script>
 
 <style scoped>

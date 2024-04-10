@@ -20,7 +20,7 @@
     <hr>
     <div class="data-container" v-if="dataDisplayed">
       <h2>User Data:</h2>
-      <p>Name: {{ name }}</p>
+      <p>Name: {{ fullname }}</p>
       <p>Email: {{ email }}</p>
       <p>Password: {{ password }}</p>
     </div>
@@ -33,21 +33,25 @@
 <script setup>
 
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 let name = ref('');
 let email = ref('');
 let password = ref('');
 let dataDisplayed = ref(false);
 
+
+
 const showData = () => {
   dataDisplayed.value = true;
 };
 
 
-const fullName = computed(() => {
-  return name.value + ' ' + email.value;
+//use computed property to display fullname 
+const fullname=computed(()=>{
+  return name.value;
 });
+
 
 
 </script>

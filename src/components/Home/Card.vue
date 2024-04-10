@@ -1,11 +1,11 @@
 <template>
   <div>
-    <router-link v-for="item in videoList" :key="item.id" :to="'/video/' + item.id" class="card-link">
+    <router-link v-for="item in filterData" :key="item.id" :to="'/video/' + item.id" class="card-link">
       <div class="card">
         <img :src="item.imgSrc">
         <div class="card-details">
           <h3 class="card-title">{{ item.title }}</h3>
-          <p style="color: blue;" class="card-views">Views:{{ item.views }}</p>
+          <p style="color: blue;" class="card-views"><Icon icon="ic:baseline-visibility" />Views:{{ item.views }}</p>
           <p class="card-disc"> {{ item.desc }}</p>
           <p>Creator:-{{ item.creator.firstname }},{{ item.creator.lastname }}</p>
         </div>
@@ -16,10 +16,30 @@
 
 <script setup>
 import {ref} from 'vue'
+import { computed,defineProps } from 'vue';
 
+// importing Data from
 import Data from '../../assets/config/data.json';
 
+
+const props = defineProps({
+  search:{
+    type:String,
+    default:''
+  }
+})
+
 const videoList = ref(Data);
+
+const filterData = computed(() => {
+  const res = videoList.value.filter(card => {
+    return card.title.toLowerCase().includes(props.search.toLowerCase());
+  });
+
+    console.log('reseef',props.search);
+    return res;
+  })
+
 
 const datalist=()=>{
     console.log(videoList);

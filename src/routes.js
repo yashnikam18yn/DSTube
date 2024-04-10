@@ -9,7 +9,7 @@ const routes = [
     {
         name: 'Profile',
         component: Profile,
-        path: '/profile'
+        path: '/profile',
     },
     {
         name:'HomeMainPage',

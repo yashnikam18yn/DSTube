@@ -4,24 +4,28 @@
       <div class="card-header">
         <img :src="data.imgSrc" :alt="'Card Image' + data.id" class="card-image">
         <h3>{{ data.title }}</h3>
-        <p class="views">Views: {{ data.views }}</p>
-        <p class="tags">{{ tag }}</p>
+        <p class="views"><Icon icon="ic:baseline-visibility" /> {{ data.views }}</p>
+        <v-chip class="tags">{{ tag }}</v-chip>
       <div class="card-content">
         <p>{{ data.desc }}</p>
         <div class="like-dislike">
-          <button @click="incrementLikes" class="like-btn">Like</button>
+          
+          <button @click="incrementLikes" class="like-btn"><Icon style="color: red;" icon="bx:bx-like" /></button>
           <span style="color: red;" class="likes">{{ likes }}</span>
-          <button @click="decrementLikes" class="dislike-btn">Dislike</button>
+          <button @click="decrementLikes" class="dislike-btn"><Icon icon="bx:bx-dislike" /></button>
         </div>
         <input v-model="comment" type="text" placeholder="Enter your comment" class="comment-input">
         <div class="btnsubmit">
-          <button @click="showData">Add Comment</button>
+          <button @click="showData"><Icon icon="fa-solid:comment" /> Comment</button>
         </div>
         <div class="comments" v-if="dataDisplayed">
           <div class="comment">
             <div class="user">{{ comment }}</div>
           </div>
         </div>
+        <button style="background-color: red;" @click="subscribe" :disabled="subscribed" class="subscribe-btn">
+          <Icon icon="mdi:email-plus" /> {{ subscribed ? 'Subscribed' : 'Subscribe' }}
+        </button>
         </div>
       </div>
     </div>
@@ -29,6 +33,7 @@
 </template>
 
 <script setup>
+import { Icon } from '@iconify/vue';
 import { ref, onMounted, reactive, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import VideoList from '../../assets/config/data.json';
@@ -36,21 +41,28 @@ import VideoList from '../../assets/config/data.json';
 let comment = ref('');
 let dataDisplayed = ref(false);
 let likes = ref(0);
+let subscribed = ref(false)
 
 const showData = () => {
   dataDisplayed.value = true;
 };
 
+
+//Likes Increment
 const incrementLikes = () => {
   likes.value++;
 };
 
+
+//Likes Decrement
 const decrementLikes = () => {
   if (likes.value > 0) {
     likes.value--;
   }
 };
 
+
+//Object 
 const data = reactive({
   imgSrc: '',
   title: '',
@@ -59,6 +71,7 @@ const data = reactive({
 });
 
 const route = useRoute();
+
 
 onMounted(() => {
   const id = route.params.id;
@@ -80,6 +93,11 @@ const tag = computed(()=>{
   }
 })
 
+const subscribe = () => {
+  
+
+  subscribed.value = true; 
+};
 
 </script>
 
